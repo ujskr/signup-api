@@ -3,9 +3,6 @@ package com.proj.signup.repo.impl;
 import static com.proj.signup.constants.DatabaseConstants.OUT_PARAMETER_OUT_PK_VALUE;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +11,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import com.proj.entity.quiz.UserMaster;
 import com.proj.signup.repo.SignupRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,22 +27,20 @@ public class SignupRepositoryImpl implements SignupRepository {
 	}
 
 	@Override
-	public Boolean saveAll(String userId, String userName, String userPassword, String firstName, String lastName,
-			String emailId, String organisation, String university, String lastLogin, Date dob, String userRoleId,
-			String addressId) throws SQLException {
+	public Boolean saveAll(UserMaster userMaster) throws SQLException {
 		Boolean check = false;
 		try {
 			log.info("START method saveAll in SignupRepository");
-			dob = new Date();
-			DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
-			dateFormat.format(dob);
-			Map<String, Object> result = createUSRPOSTSPInstance.execute(userId, userName, userPassword, firstName,
-					lastName, emailId, organisation, university, lastLogin, dob, userRoleId, addressId);
+			Map<String, Object> result = createUSRPOSTSPInstance.execute(userMaster.getUserId(),
+					userMaster.getUserName(), userMaster.getUserPassword(), userMaster.getFirstName(),
+					userMaster.getLastName(), userMaster.getEmailId(), userMaster.getOrganisation(),
+					userMaster.getUniversity(), userMaster.getLastLogin(), userMaster.getDob(),
+					userMaster.getUserRole().getUserRoleId(), userMaster.getUserAddress().getAddressId());
 			String res = (String) result.get(OUT_PARAMETER_OUT_PK_VALUE);
 
 			if (StringUtils.isEmpty(res)) {
 				check = false;
-			} else if (userId.equals(res)) {
+			} else if (userMaster.getUserId().equals(res)) {
 				check = true;
 			} else {
 				check = false;
