@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SignupRepository {
-	public Boolean saveAll(String userId, String userName, String userPassword, String firstName, String lastName,
+	public Boolean saveAll(String userId, String userName, String userHashPassword, String firstName, String lastName,
 			String emailId, String organisation, String university, String lastLogin, Date dob, String userRoleId,
 			String addressId) throws SQLException;
 }

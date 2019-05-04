@@ -29,10 +29,10 @@ public class SignupController {
 			@RequestHeader String emailId, @RequestHeader String organisation, @RequestHeader String university,
 			@RequestHeader String lastLogin, @RequestHeader(required = false) Date dob,
 			@RequestHeader String userRoleId, @RequestHeader String addressId) throws SQLException {
-		log.info("START mathod createUser in SignupController");
+		log.info("START method createUser in SignupController");
 		Boolean check = signupService.insertUserDetails(userId, userName, userPassword, firstName, lastName, emailId,
 				organisation, university, lastLogin, dob, userRoleId, addressId);
-		log.info("END mathod createUser in SignupController");
+		log.info("END method createUser in SignupController");
 		return new ResponseEntity<>(check,HttpStatus.OK);
 	}
 }

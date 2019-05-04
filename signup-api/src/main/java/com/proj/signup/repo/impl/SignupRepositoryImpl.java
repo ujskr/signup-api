@@ -34,7 +34,7 @@ public class SignupRepositoryImpl implements SignupRepository {
 			String addressId) throws SQLException {
 		Boolean check = false;
 		try {
-			log.info("START mathod saveAll in SignupRepository");
+			log.info("START method saveAll in SignupRepository");
 			dob = new Date();
 			DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
 			dateFormat.format(dob);
@@ -52,7 +52,7 @@ public class SignupRepositoryImpl implements SignupRepository {
 		} catch (UncategorizedSQLException ex) {
 			log.info("error occoured in saving data - " + ex.getLocalizedMessage());
 		}
-		log.info("END mathod saveAll in SignupRepository");
+		log.info("END method saveAll in SignupRepository");
 		return check;
 	}
 
